@@ -35,6 +35,7 @@ public class GenericUtils {
 
 		action.moveToElement(element);
 		
+		
 	}
 
 
@@ -43,6 +44,8 @@ public class GenericUtils {
 		JavascriptExecutor jp=(JavascriptExecutor)driver;
 
 		jp.executeScript("arguments[0].scrollIntoView(true);",element);
+		
+
 
 
 
@@ -181,7 +184,7 @@ public class GenericUtils {
 
 	}
 
-	public static void screenshot(WebDriver driver,String testcasename) throws IOException  {
+	public static String screenshot(WebDriver driver,String testcasename) throws IOException  {
 
 		TakesScreenshot sc= (TakesScreenshot)driver;
 
@@ -195,9 +198,13 @@ public class GenericUtils {
 
 
 		File src= sc.getScreenshotAs(OutputType.FILE);
+		
+		String Dest_path="C:\\Users\\ravin\\Desktop\\Qspider\\screenshots\\"+timestamp+"_"+testcasename+".jpg";
 
-		File dest= new File("C:\\Users\\ravin\\Desktop\\Qspider\\screenshots\\"+timestamp+"_"+testcasename+".jpg");
+		File dest= new File(Dest_path);
 		FileUtils.copyFile(src, dest);
+		
+		return Dest_path;
 
 
 	}

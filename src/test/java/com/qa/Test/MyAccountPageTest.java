@@ -1,24 +1,32 @@
 package com.qa.Test;
 
+import java.io.IOException;
+
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
 import com.qa.Base.TestBase;
 import com.qa.Pages.HomePage;
 import com.qa.Pages.LoginPage;
 import com.qa.Pages.MyAccountPage;
 import com.qa.Pages.ProductPage;
 
+import GenericUtility.GenericUtils;
+
 public class MyAccountPageTest extends TestBase {
 
 	LoginPage login;
 
 	HomePage homepage;
-	
+
 	MyAccountPage myaccountpg;
+
 
 
 
@@ -35,12 +43,12 @@ public class MyAccountPageTest extends TestBase {
 
 
 		TestBase.intitalization();
-		
+
 		login=new LoginPage();
 
 		homepage=login.loginUser();
-		
-		myaccountpg=homepage.load_MyAccountPage();
+
+		myaccountpg=new MyAccountPage();
 
 	}
 
@@ -48,39 +56,47 @@ public class MyAccountPageTest extends TestBase {
 	@Test
 
 	//product added to wishlist successfully
-	public void wishlist_TC_001() throws Exception {
+	public void MyaccountPage_TC_001() throws Exception {
 
-	
+
 
 		String actual=myaccountpg.add_ProductTo_Wishlist();
-		
-	
-		
-		Assert.assertTrue(actual.contains("Added to your wishlist"), "items not added to wishlist");
-		
+
+		Assert.assertEquals(actual,"Added to your wishlist.");
+
+
+
+
 		Reporter.log(actual);
-		
-	
+
+
 
 	}
-	
+
 	@Test
-	
-	public void wishlist_TC_002() {
-		
+
+	public void MyaccountPage_TC_002() {
+
+
+
+
 		String actual_msg=myaccountpg.wishlist_Verification();
-		
-		Assert.assertFalse(actual_msg.contains("items not added"), "items not added to wishlist");
-		
+
+		Assert.assertEquals(actual_msg,"Faded Short Sleeve T-shirts");
+
+
+
 		Reporter.log(actual_msg);
 	}
-	
-	
+
+
 	@AfterMethod
-	
-	public void teardown() {
-		
+
+	public void teardown(ITestResult result) throws IOException {
+
 		driver.quit();
+
+
 	}
 
 }

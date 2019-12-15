@@ -184,6 +184,8 @@ public class LoginPage extends TestBase {
 	public String unregistereduser_AdProduct(String productname) throws Exception {
 
 		GenericUtils.mousehover(driver, womentab);
+		
+		Thread.sleep(4000);
 
 		womentab.click();
 		tops_tab_open.click();
